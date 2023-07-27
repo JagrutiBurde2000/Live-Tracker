@@ -33,7 +33,12 @@ fetch(`https://api.opencagedata.com/geocode/v1/json?q=${latitude}+${longitude}&k
     let allDetails=result.results[0].components;
     let{suburb,city,state_district,state, postcode}=allDetails;
     console.log(suburb,city,state_district,state, postcode)
-    button.innerText=`${suburb} ${city}  ${postcode} ${state_district} ${state}`
+    if(suburb==="undefined" || city==="undefined"){
+        button.innerText=`${postcode} ${state_district} ${state}`
+    }else{
+        button.innerText=`${suburb} ${city}  ${postcode} ${state_district} ${state}`
+    }
+   
 console.table(allDetails)
 }).catch(()=>{
     button.innerText="Something Went Wrong"
