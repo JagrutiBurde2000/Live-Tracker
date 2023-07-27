@@ -33,11 +33,14 @@ fetch(`https://api.opencagedata.com/geocode/v1/json?q=${latitude}+${longitude}&k
     let allDetails=result.results[0].components;
     let{suburb,city,state_district,state, postcode}=allDetails;
     console.log(suburb,city,state_district,state, postcode)
-    if(`${suburb}`==="undefined" || `${city}`==="undefined"){
-        button.innerText=`${postcode} ${state_district} ${state}`
-    }else{
-        button.innerText=`${suburb} ${city}  ${postcode} ${state_district} ${state}`
-    }
+    
+    if (typeof suburb === "undefined" || typeof city === "undefined") {
+        let locationText = `${postcode} ${state_district} ${state}`.trim();
+        button.innerText = locationText !== "" ? locationText : "Location details not available";
+      } else {
+        let locationText = `${suburb} ${city} ${postcode} ${state_district} ${state}`.trim();
+        button.innerText = locationText !== "" ? locationText : "Location details not available";
+      }
    
 console.table(allDetails)
 }).catch(()=>{
